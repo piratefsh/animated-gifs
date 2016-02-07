@@ -1,0 +1,41 @@
+function onGLC(glc) {
+    glc.loop();
+//     glc.size(400, 400);
+     glc.setDuration(0.5);
+//     glc.setFPS(20);
+     glc.setMode('single');
+     glc.setEasing(false);
+    var list = glc.renderList,
+        width = glc.w,
+        height = glc.h,
+        color = glc.color;
+
+    // your code goes here:
+
+    glc.styles.shadowColor = 'rgba(0,0,0,0.5)';
+    glc.styles.shadowOffsetX = 2;
+    glc.styles.shadowOffsetY = 2;
+    
+    var n = 5;
+    for(var i = 0; i < n; i++){
+        list.addRect({
+            x: width/2,
+            y: height/2,
+            sides: 4,
+            w: 100,
+            h: 40,
+            fillStyle: '#ddd',
+            drawFromCenter: false,
+            rotation: [0, -360],
+            phase: i/n
+        })
+    }
+    
+    list.addCircle({
+        x:width/2,
+        y:height/2,
+        radius:25,
+        fillStyle: '#eee'
+    });
+    
+}

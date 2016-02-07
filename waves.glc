@@ -1,0 +1,54 @@
+function onGLC(glc) {
+    glc.loop();
+//     glc.size(400, 400);
+     glc.setDuration(3);
+//     glc.setFPS(20);
+     glc.setMode('single');
+     glc.setEasing(false);
+    var list = glc.renderList,
+        width = glc.w,
+        height = glc.h,
+        color = glc.color;
+	
+    // your code goes here:
+    var n = 18;
+    var b = 3;
+    var lw = 4;
+    
+    glc.styles.backgroundColor = 'rgb(0, 45, 55)'
+    
+    var bsize = width/b;
+   
+
+    for(var j = 0; j < b; j++){
+        for(var k = 0; k < b; k++){
+       
+            var w = bsize * k;
+            var h = bsize * j;
+			var maxColor = 255;
+            
+            for(var i = 0; i <= n; i++){
+               	var offset = bsize/n * i;
+                
+                var r = Math.floor((maxColor * (i/n) * 2)) % maxColor;
+
+                list.addBezierSegment({
+                    x3: offset + w ,
+                    y3: h,
+                    x2:	offset + w - bsize/3,
+                    y2:	h + bsize/2,
+                    x1:	offset + w + bsize/3,
+                    y1:	h + bsize/2,
+                    x0:	offset + w,
+                    y0:	h + bsize,
+                    percent: [0.5],
+                    phase: (i/(n)),
+                    lineWidth: lw,
+                    strokeStyle: 'rgb(' + r + ', 150, 150)',
+                    //showPoints: true
+                });
+            }
+    	}
+    }
+    
+}

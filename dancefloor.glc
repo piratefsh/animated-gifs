@@ -1,0 +1,53 @@
+function onGLC(glc) {
+    glc.loop();
+//     glc.size(400, 400);
+//     glc.setDuration(5);
+//     glc.setFPS(20);
+//     glc.setMode('single');
+//     glc.setEasing(false);
+    var list = glc.renderList,
+        width = glc.w,
+        height = glc.h,
+        color = glc.color;
+
+    // your code goes here:
+    
+    var s = 100;
+    var n = Math.floor(width/s);
+    var k = 0;
+    var count = 0;
+    var skip;
+    
+    for(var j = s/2; j < height; j+=s/2){ 
+		count=0;
+        k = 0;
+        skip = false;
+        for(var i = 0; i < width*2; i+=s/2){    
+            var offset = count % 2 == 0 ? s/4 : 0;
+            var ratio = Math.floor(255*count/(height/(s/2)));
+		
+            if(true){
+                console.log((i/2), offset, skip);
+                list.addIsobox({
+                    x: (i/2%width),
+                    y: j + offset,
+                    size: s,
+                    h: [1, 10],
+                    colorTop: 'rgb(' + ratio + ', 150, 150)',
+                    colorLeft: 'rgb(120,120,120)',
+                    colorRight: 'rgb(100,100,100)',
+                    stroke: false,
+                    fill: true,
+                    phase: (i)/(width*height)
+                });
+				count++;
+            }
+            else{
+                console.log(i/2)
+            }
+            
+            skip = !skip;
+        }  
+        break;
+    }
+}

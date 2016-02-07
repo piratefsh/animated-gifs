@@ -1,0 +1,32 @@
+function onGLC(glc) {
+    glc.loop();
+//     glc.size(400, 400);
+     glc.setDuration(4);
+//     glc.setFPS(20);
+     glc.setMode('single');
+     glc.setEasing(false);
+    var list = glc.renderList,
+        width = glc.w,
+        height = glc.h,
+        color = glc.color;
+	glc.styles.lineWidth = 6;
+    glc.styles.backgroundColor = 'rgba(0, 0, 70, 200)';
+    var n = 10;
+    var min = 10;
+    var max = Math.sqrt((width/2*width/2)/2)*2;
+    
+    // your code goes here:
+    for(var i = 0; i < n; i++){
+        var p = (Math.sqrt(i/2)/Math.sqrt(n/2));
+        console.log(p);
+        list.addCircle({
+            x: width/2,
+            y: height/2,
+            strokeStyle: [ 'rgba(200,100, 200, 0.2)', 'rgba(100,200, 200, 1)'],
+            stroke: true,
+            fill: false,
+            radius: [min,  max],
+            phase: p
+    	});
+    }
+}
