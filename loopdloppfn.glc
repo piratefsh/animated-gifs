@@ -1,8 +1,6 @@
 function onGLC(glc) {
     glc.loop();
-//     glc.size(400, 400);
-     glc.setDuration(4);
-//     glc.setFPS(20);
+     glc.setDuration(3);
      glc.setMode('single');
      glc.setEasing(false);
     var list = glc.renderList,
@@ -14,35 +12,37 @@ function onGLC(glc) {
     styles.backgroundColor = 'rgb(40, 140, 140)';
     styles.fillStyle = 'white';
     
-    var bn = 3;
-    var ln = 1;
-    var cw = width/bn;
-    var ch = height/ln;
-    var n = 20;
+    var bn = 3; // number of loops
+    var ln = 1; // rows of loops
+    var cw = width/bn; // width of each loop
+    var ch = height/ln; // height of each loop
+    var n = 78; // number of points per loop
     
-    var r = 70;
-    for(var b = 0; b < bn; b++){
-        var container = list.addContainer({
+    var r = width/bn/2.7; // turning radius of loop
+    
+    var container = list.addContainer({
             x: 0,
             y: 0,
             w: cw,
             h: ch,
-            translationX: width/bn,
+            translationX: width/bn - cw , // shift by loop width
             translationY: height/2
         });
-        
+    
+    for(var b = 0; b < bn; b++){
         for (var i = 0; i < n; i++){
             list.addCircle({
-                translationX: b*cw,
                 x: function(t){
-                    return t*cw - cw + r*Math.sin(t*2*Math.PI)
+                    // move right + rotate around circle
+                    // multiply by # of loops to have
+                    return (t*cw*bn + r * Math.sin((t*2*Math.PI*bn)))
                 },
                 y: function(t){
-                    return r*Math.cos(t*2*Math.PI)
+                    return r * Math.cos(t*2*Math.PI*bn)
                 },
-                radius: 4,
+                radius: 3,
                 parent: container,
-                phase: i/n
+                phase: (i*b)/(n*bn)
             });
         }
     }
