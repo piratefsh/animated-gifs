@@ -1,0 +1,51 @@
+function onGLC(glc) {
+    glc.loop();
+//     glc.size(400, 400);
+     glc.setDuration(4);
+//     glc.setFPS(20);
+     glc.setMode('single');
+     glc.setEasing(false);
+    var list = glc.renderList,
+        width = glc.w,
+        height = glc.h,
+        color = glc.color,
+        styles=glc.styles;
+    
+    styles.backgroundColor = 'rgb(40, 140, 140)';
+    styles.fillStyle = 'white';
+    
+    var bn = 3;
+    var ln = 1;
+    var cw = width/bn;
+    var ch = height/ln;
+    var n = 20;
+    
+    var r = 70;
+    for(var b = 0; b < bn; b++){
+        var container = list.addContainer({
+            x: 0,
+            y: 0,
+            w: cw,
+            h: ch,
+            translationX: width/bn,
+            translationY: height/2
+        });
+        
+        for (var i = 0; i < n; i++){
+            list.addCircle({
+                translationX: b*cw,
+                x: function(t){
+                    return t*cw - cw + r*Math.sin(t*2*Math.PI)
+                },
+                y: function(t){
+                    return r*Math.cos(t*2*Math.PI)
+                },
+                radius: 4,
+                parent: container,
+                phase: i/n
+            });
+        }
+    }
+    
+    
+}

@@ -1,0 +1,64 @@
+function onGLC(glc) {
+    glc.loop();
+//     glc.size(400, 400);
+//     glc.setDuration(5);
+//     glc.setFPS(20);
+//     glc.setMode('single');
+     glc.setEasing(false);
+    var list = glc.renderList,
+        width = glc.w,
+        height = glc.h,
+        color = glc.color;
+	
+    var r = 200;
+    var points = [];
+    var gap = 24;
+    
+    glc.styles.backgroundColor = 'rgb(100, 50, 70)'
+    
+    var container = list.addContainer({
+        x: 0,
+        y: 0,
+        w: width,
+        h: height,
+        //rotation: [0, 360],
+        translationX: width/2,
+        translationY: height/2
+    })
+    
+    // your code goes here:
+    for(var d = 0; d < 360; d+=gap){
+        var t = d/180 * Math.PI;
+        var x = Math.floor(r * Math.cos(t));
+        var y = Math.floor(r * Math.sin(t));
+        var x1 = Math.floor(r/2 * Math.cos(t));
+        var y1 = Math.floor(r/2 * Math.sin(t));
+        points.push({
+            x:x, 
+            y:y, 
+            x1: x1,
+            y1: y1, 
+            d: d - 30
+        });
+    }
+    
+    points.forEach(function(p, i){
+        points.forEach(function(o, j){
+            if( j < i){return}
+            list.addLine({
+             x0: p.x,
+             y0: p.y,
+             x1: o.x,
+             y1: o.y,
+             segmentLength: r,
+             strokeStyle: ['rgba(255,255,255,0.6)', 'rgba(255,255,255,0)'],
+             lineWidth: 7,
+             parent: container,
+             phase: j/points.length
+           }) 
+        })
+    });
+
+
+
+}

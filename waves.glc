@@ -33,7 +33,7 @@ function onGLC(glc) {
                 var r = Math.floor((maxColor * (i/n) * 2)) % maxColor;
 
                 list.addBezierSegment({
-                    x3: offset + w ,
+                    x3  : offset + w ,
                     y3: h,
                     x2:	offset + w - bsize/3,
                     y2:	h + bsize/2,

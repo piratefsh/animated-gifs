@@ -1,0 +1,92 @@
+function onGLC(glc) {
+    glc.loop();
+//     glc.size(400, 400);
+     glc.setDuration(4);
+//     glc.setFPS(20);
+//     glc.setMode('single');
+     glc.setEasing(false);
+    var list = glc.renderList,
+        width = glc.w,
+        height = glc.h,
+        color = glc.color,
+        styles = glc.styles;
+	
+	
+    // your code goes here:
+    var r = 240;
+    var gap = 30;
+    
+    var points = [];
+    
+    list.addRect({
+        x:width/2,
+        y:height/2,
+        w:width,
+        h:height,
+        fill: true,
+        fillStyle: ['#44555b', '#334449']
+    })
+    
+    for(var d = 0; d < 360; d+=gap){
+        var t = d/180 * Math.PI;
+        var x = Math.floor(r * Math.cos(t));
+        var y = Math.floor(r * Math.sin(t));
+        points.push({x:x, y:y, d: d - 30});
+    }
+
+    points.push({x:points[0].x, y: points[0].y});
+    
+    console.log(points)
+    
+    var container = list.addContainer({
+        //rotation: [360, 0],
+        translationX: width/2,
+        translationY: height/2,
+        x: 0,
+        y: 0,
+        w: width,
+        h: height
+    })
+    points.forEach(function(p, i){
+       //p.visited = true;
+       //if(i != 200 && i!=1){return}
+       points.forEach(function(o, j){
+           if(i != j){
+               var distance = Math.sqrt(Math.pow(o.x-p.x, 2) + Math.pow(o.y-p.y, 2));
+               //console.log(distance)
+               var midx = (p.x+o.x)/2;
+               var midy = (p.y+o.y)/2;
+               
+               var r = Math.floor(distance/2);
+               var sa = Math.floor(Math.atan2(p.y - midy, p.x - midx) / Math.PI*180);
+               var ea = Math.floor(Math.atan2(o.y - midy, o.x - midx) / Math.PI*180);
+               
+               var rot = 0;
+
+               if(midx > 0){
+                   rot = 180;
+               }
+               
+               var color = 'rgba('+Math.floor(250*i/points.length)+',150,150'
+               color =  'rgba(50,150,150'
+               list.addArcSegment({
+                   x: midx,
+                   y: midy,
+                   radius: r,
+     			   startAngle: sa,
+                   endAngle: ea,
+                   arc: 30,
+                   rotation: rot,
+                   fill: false,
+                   stroke: true,
+                   lineWidth: 6,
+                   strokeStyle: [color+ ',1)', color+ ',0.3)'],
+                   parent: container,
+                   //phase: j/(points.length)
+               })
+           }
+       }) 
+    });
+
+
+}
